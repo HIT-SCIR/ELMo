@@ -1,11 +1,8 @@
-import logging
 import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)-15s %(levelname)s: %(message)s')
 
 
 class SoftmaxLayer(nn.Module):

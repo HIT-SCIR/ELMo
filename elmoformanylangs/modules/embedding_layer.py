@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)-15s %(levelname)s: %(message)s')
+logger = logging.getLogger('elmoformanylangs')
 
 
 class EmbeddingLayer(nn.Module):
@@ -16,9 +16,9 @@ class EmbeddingLayer(nn.Module):
       #  assert word not in word2id, "Duplicate words in pre-trained embeddings"
       #  word2id[word] = len(word2id)
 
-      logging.info("{} pre-trained word embeddings loaded.".format(len(word2id)))
+      logger.info("{} pre-trained word embeddings loaded.".format(len(word2id)))
       if n_d != len(embvecs[0]):
-        logging.warning("[WARNING] n_d ({}) != word vector size ({}). Use {} for embeddings.".format(
+        logger.warning("[WARNING] n_d ({}) != word vector size ({}). Use {} for embeddings.".format(
           n_d, len(embvecs[0]), len(embvecs[0])))
         n_d = len(embvecs[0])
 
@@ -33,7 +33,7 @@ class EmbeddingLayer(nn.Module):
     if embs is not None:
       weight = self.embedding.weight
       weight.data[:len(embwords)].copy_(torch.from_numpy(embvecs))
-      logging.info("embedding shape: {}".format(weight.size()))
+      logger.info("embedding shape: {}".format(weight.size()))
 
     if normalize:
       weight = self.embedding.weight

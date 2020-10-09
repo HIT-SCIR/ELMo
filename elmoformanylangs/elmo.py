@@ -13,8 +13,7 @@ from .frontend import create_one_batch
 from .frontend import Model
 import numpy as np
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)-15s %(levelname)s: %(message)s')
+logger = logging.getLogger('elmoformanylangs')
 
 
 def read_list(sents, max_chars=None):
@@ -93,7 +92,7 @@ def create_batches(x, batch_size, word2id, char2id, config, perm=None, shuffle=F
         if text is not None:
             batches_text = [batches_text[i] for i in perm]
 
-    logging.info("{} batches, avg len: {:.1f}".format(
+    logger.info("{} batches, avg len: {:.1f}".format(
         nbatch, sum_len / len(x)))
     recover_ind = [item for sublist in batches_ind for item in sublist]
     if text is not None:
@@ -129,7 +128,7 @@ class Embedder(object):
                     self.char_lexicon[token] = int(i)
             char_emb_layer = EmbeddingLayer(
                 config['token_embedder']['char_dim'], self.char_lexicon, fix_emb=False, embs=None)
-            logging.info('char embedding size: ' +
+            logger.info('char embedding size: ' +
                         str(len(char_emb_layer.word2id)))
         else:
             self.char_lexicon = None
@@ -147,7 +146,7 @@ class Embedder(object):
                     self.word_lexicon[token] = int(i)
             word_emb_layer = EmbeddingLayer(
                 config['token_embedder']['word_dim'], self.word_lexicon, fix_emb=False, embs=None)
-            logging.info('word embedding size: ' +
+            logger.info('word embedding size: ' +
                         str(len(word_emb_layer.word2id)))
         else:
             self.word_lexicon = None
@@ -159,7 +158,7 @@ class Embedder(object):
         if self.use_cuda:
             model.cuda()
 
-        logging.info(str(model))
+        logger.info(str(model))
         model.load_model(self.model_dir)
 
         # read test data according to input format
@@ -208,7 +207,7 @@ class Embedder(object):
 
                 cnt += 1
                 if cnt % 1000 == 0:
-                    logging.info('Finished {0} sentences.'.format(cnt))
+                    logger.info('Finished {0} sentences.'.format(cnt))
 
         after_elmo = recover(after_elmo, recover_ind)
         return after_elmo

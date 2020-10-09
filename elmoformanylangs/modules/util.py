@@ -3,7 +3,6 @@ Assorted utilities for working with neural networks in AllenNLP.
 """
 from collections import defaultdict
 from typing import Dict, List, Optional, Any, Tuple, Callable
-import logging
 import itertools
 import math
 import torch
