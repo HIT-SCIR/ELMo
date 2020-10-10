@@ -72,8 +72,8 @@ is `zht.model/cnn_50_100_512_4096_sample.json`, you need to change `"config_path
 in `zht.model/config.json` to `cnn_50_100_512_4096_sample.json`.
 
 If there is no configuration `cnn_50_100_512_4096_sample.json` under `${lang}.model`,
-you can copy the `configs/cnn_50_100_512_4096_sample.json` into `${lang}.model`,
-or change the `"config_path"` into  `configs/cnn_50_100_512_4096_sample.json`.
+you can copy the `elmoformanylangs/configs/cnn_50_100_512_4096_sample.json` into `${lang}.model`,
+or change the `"config_path"` into  `elmoformanylangs/configs/cnn_50_100_512_4096_sample.json`.
 
 See [issue 27](https://github.com/HIT-SCIR/ELMoForManyLangs/issues/27) for more details. 
 
@@ -173,7 +173,7 @@ Legacy
 
 $ python -m elmoformanylangs.biLM train \
     --train_path data/en.raw \
-    --config_path configs/cnn_50_100_512_4096_sample.json \
+    --config_path elmoformanylangs/configs/cnn_50_100_512_4096_sample.json \
     --model output/en \
     --optimizer adam \
     --lr 0.001 \
