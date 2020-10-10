@@ -113,7 +113,27 @@ class Embedder(object):
         args2 = dict2namedtuple(json.load(codecs.open(
             os.path.join(self.model_dir, 'config.json'), 'r', encoding='utf-8')))
 
-        with open(os.path.join(self.model_dir, args2.config_path), 'r') as fin:
+        config_path = os.path.join(self.model_dir, args2.config_path)
+        # Some of the available models may have the config in the
+        # model dir, but the path given in the config directory was an
+        # absolute path.
+        if not os.path.exists(config_path):
+            config_path = os.path.join(self.model_dir,
+                                       os.path.split(config_path)[1])
+            logger.warning("Could not find config.  Trying " + config_path)
+        # In many cases, such as the publicly available English model,
+        # the config is one of the default provided configs in
+        # elmoformanylangs/configs
+        if not os.path.exists(config_path):
+            config_path = os.path.join(os.path.split(__file__)[0], "configs",
+                                       os.path.split(config_path)[1])
+            logger.warning("Could not find config.  Trying " + config_path)
+
+        if not os.path.exists(config_path):
+            raise FileNotFoundError("Could not find the model config in either the model directory "
+                                    "or the default configs.  Path in config file: %s" % args2.config_path)
+
+        with open(config_path, 'r') as fin:
             config = json.load(fin)
 
         # For the model trained with character-based word encoder.
