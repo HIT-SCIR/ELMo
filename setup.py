@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
   name="elmoformanylangs",
-  version="0.0.4",
+  version="0.0.4.post1",
   packages=setuptools.find_packages(),
   install_requires=[
     "torch",
