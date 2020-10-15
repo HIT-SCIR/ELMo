@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
   name="elmoformanylangs",
-  version="0.0.3.post1",
+  version="0.0.4",
   packages=setuptools.find_packages(),
   install_requires=[
     "torch",
@@ -14,7 +14,7 @@ setuptools.setup(
   ],
   package_data={'configs': ['elmoformanylangs/configs/*.json']},
   include_package_data=True,
-  author="哈工大社会计算与信息检索研究中心",
+  author="Research Center for Social Computing and Information Retrieval",
   description="ELMo, updated to be usable with models for many languages",
   url="https://github.com/HIT-SCIR/ELMoForManyLangs",
   classifiers=[
